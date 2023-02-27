@@ -1,0 +1,32 @@
+---
+title: "Senior Project"
+author: "Jonathan"
+date: "2023-02-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+df_analysis <- read.csv('analysis.csv')
+df_analysis 
+```
+
+```{r}
+df_developed = subset(df_analysis, Category == 'Developed')
+df_developing = subset(df_analysis, Category == 'Developing')
+```
+
+```{r}
+# Developed countries correlation between Log GDPPC and CO2 Emissions
+cor(df_developed$LogGDPPC, df_developed$CO2_Emissions, method = 'pearson')
+```
+
+```{r}
+# Developing countries correlation between Log GDPPC and CO2 Emissions
+cor(df_developing$LogGDPPC, df_developing$CO2_Emissions, method = 'pearson')
+```
+
+
