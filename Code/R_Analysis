@@ -1,0 +1,32 @@
+# Keep only countries with HDI data
+df_analysis = subset(df_analysis, !is.na(HDI))
+
+# Create new category variable for developed and developing countries, based on HDI
+df_developed = subset(df_analysis, Category == 'Developed')
+df_developing = subset(df_analysis, Category == 'Developing')
+
+# Developed countries correlation between Log GDPPC and CO2 Emissions
+cor.test(df_developed$Log_GDPPC, df_developed$CO2_Emissions, method = 'pearson')
+
+# Developing countries correlation between Log GDPPC and CO2 Emissions
+cor.test(df_developing$Log_GDPPC, df_developing$CO2_Emissions, method = 'pearson')
+
+# SLR
+mod_all = lm(CO2_Emissions ~ Log_GDPPC, data = df_analysis)
+summary(mod_all)
+
+# Developed countries linear model
+mod_developed = lm(CO2_Emissions ~ Log_GDPPC, data = df_developed)
+summary(mod_developed)
+
+# Developing countries linear model
+mod_developing = lm(CO2_Emissions ~ Log_GDPPC, data = df_developing)
+summary(mod_developing)
+
+# Multi Regression of Developed
+mod_multi_developed = lm(CO2_Emissions ~ Log_GDPPC + Renewable + Electricity, data = df_developed)
+summary(mod_multi_developed)
+
+# Multi Regression of developing
+mod_multi_developing = lm(CO2_Emissions ~ Log_GDPPC + Renewable + Electricity, data = df_developing)
+summary(mod_multi_developing)
